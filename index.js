@@ -171,10 +171,6 @@ app.put('/carrito/:id_cliente', (req, res) => {
     writeDB(bd);
     return res.status(200).json(actulizarCarrito);
 })
-//TODO METODOS PATCH PARA CLIENTES PRODUCTOS Y CARRITO
-
-//TODO METODOS DELETE PARA CLIENTES PRODUCTOS Y CARRITO
-
 //run server comman
 "npm run dev"
 
@@ -189,7 +185,7 @@ app.listen(puerto, () => {
     console.log("hola mundo pruebas");
 });
 
-// METODO PATH CLIENTES
+// METODO PATCH CLIENTES
 app.patch('/clientes/:id_cliente', (req, res) => {
     const id_cliente = parseInt(req.params.id_cliente); // obtener el id de la URL
     const informacion = req.body; // obtener los datos del cuerpo de la solicitud
@@ -209,7 +205,7 @@ app.patch('/clientes/:id_cliente', (req, res) => {
     res.status(200).json(cliente_modificar);
 });
 
-// METODO PATH PRODUCTOS
+// METODO PATCH PRODUCTOS
 
 app.patch('/productos/:id', (req,res)=> {
     const body = req.body
@@ -230,7 +226,7 @@ app.patch('/productos/:id', (req,res)=> {
     res.status(200).json(producto_modificar);
 });
 
-//METODO PATH PARA CARRITO
+//METODO PATCH PARA CARRITO
 
 app.patch('/carrito/:id_cliente', (req, res) => {
     const body = req.body;
