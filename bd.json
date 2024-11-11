@@ -2,8 +2,8 @@
   "clientes": [
     {
       "id_cliente": 1,
-      "nombre_cliente": "Juan Pérez_put",
-      "direccion_cliente": "Calle Falsa 123_put",
+      "nombre_cliente": "Juan Marquez Pérez_put",
+      "direccion_cliente": "Corinto  paz Falsa 123_put",
       "celular_cliente": "555-1234_put"
     },
     {
@@ -11,12 +11,6 @@
       "nombre_cliente": "María López",
       "direccion_cliente": "Avenida Siempre Viva 742",
       "celular_cliente": "555-5678"
-    },
-    {
-      "id_cliente": 3,
-      "nombre_cliente": "Carlos Gómez",
-      "direccion_cliente": "Boulevard de los Sueños Rotos 456",
-      "celular_cliente": "555-8765"
     },
     {
       "id_cliente": 5
@@ -29,9 +23,6 @@
       "nombre_cliente": "Diego Ruiz",
       "direccion_cliente": "Calle del Río 35",
       "celular_cliente": "555-9876"
-    },
-    {
-      "id_cliente": 8
     },
     {
       "id_cliente": 9,
@@ -55,21 +46,15 @@
   "productos": [
     {
       "id": 1,
-      "nombre": "Producto A-put",
-      "linea": "Línea 1-put",
-      "precio": 200
+      "nombre": "Productos de nombre A-put",
+      "linea": "Línea 2-put",
+      "precio": 30000
     },
     {
       "id": 2,
       "nombre": "Producto B",
       "linea": "Línea 1",
       "precio": 150
-    },
-    {
-      "id": 3,
-      "nombre": "Producto C",
-      "linea": "Línea 2",
-      "precio": 200
     },
     {
       "id": 4,
@@ -121,19 +106,6 @@
     }
   ],
   "carrito": [
-    {
-      "id_cliente": 1,
-      "productos": [
-        {
-          "id_producto": 2,
-          "cantidad": 4
-        },
-        {
-          "id_producto": 3,
-          "cantidad": 5
-        }
-      ]
-    },
     {
       "id_cliente": 2,
       "productos": [

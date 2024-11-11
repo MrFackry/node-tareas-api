@@ -2,6 +2,7 @@ import express from "express";
 import fs from "fs";
 import path from "path";
 import bodyParser from "body-parser"; // Asegúrate de tener body-parser instalado
+import { request } from "http";
 
 const app = express();
 const puerto = 3000;
@@ -187,3 +188,110 @@ app.get("/", (req, res) => {
 app.listen(puerto, () => {
     console.log("hola mundo pruebas");
 });
+
+// METODO PATH CLIENTES
+app.patch('/clientes/:id_cliente', (req, res) => {
+    const id_cliente = parseInt(req.params.id_cliente); // obtener el id de la URL
+    const informacion = req.body; // obtener los datos del cuerpo de la solicitud
+
+    const clienteIndex = bd.clientes.findIndex(est => est.id_cliente === id_cliente);
+
+    if(clienteIndex < 0){
+        return res.status(404).send("No se encontro el cliente");
+    }
+    const cliente_modificar = bd.clientes[clienteIndex];
+    Object.assign(cliente_modificar, informacion);
+    //assign es un metodo que permite modificar aquellos argumentos que le pasemos
+    // Escribir los cambios en la base de datos
+    writeDB(bd);
+
+    // Devolver el cliente actualizado
+    res.status(200).json(cliente_modificar);
+});
+
+// METODO PATH PRODUCTOS
+
+app.patch('/productos/:id', (req,res)=> {
+    const body = req.body
+    const id = parseInt(req.params.id);
+
+    const productIndex = bd.productos.findIndex(est => est.id === id);
+
+    if(productIndex < 0){
+        return res.status(404).send("No se encontro el producto");
+    }
+    const producto_modificar = bd.productos[productIndex];
+    Object.assign(producto_modificar, body);
+    //assign es un metodo que permite modificar aquellos argumentos que le pasemos
+    // Escribir los cambios en la base de datos
+    writeDB(bd);
+
+    // Devolver el cliente actualizado
+    res.status(200).json(producto_modificar);
+});
+
+//METODO PATH PARA CARRITO
+
+app.patch('/carrito/:id_cliente', (req, res) => {
+    const body = req.body;
+    const id_cliente = parseInt(req.params.id_cliente);
+
+    const carrito = bd.carrito.findIndex(est => est.id_cliente === id_cliente);
+
+    if(carrito < 0){
+        return res.status(404).send("No se encontro el carrito asociado");
+    }
+    const carrito_modificar = bd.carrito[carrito];
+    Object.assign(carrito_modificar, body);
+    //assign es un metodo que permite modificar aquellos argumentos que le pasemos
+    // Escribir los cambios en la base de datos
+    writeDB(bd);
+
+    // Devolver el cliente actualizado
+    res.status(200).json(carrito_modificar);
+
+})
+
+//METODO DELETE PARA CLIENTES
+
+app.delete('/clientes/:id_cliente', (req, res) => {
+    const id_cliente = parseInt(req.params.id_cliente);
+    const clienteIndex = bd.clientes.findIndex(c => c.id_cliente === id_cliente);
+    if (clienteIndex === -1) {
+        return res.status(404).send("Cliente no encontrado");
+    }
+    //metodo splice se le pasa el index de que s equiere que se borre 
+    bd.clientes.splice(clienteIndex, 1);
+    writeDB(bd);
+    res.status(200).send("Cliente eliminado exitosamente");
+});
+
+//METODO DELETE PARA PRODUCTOS
+app.delete('/productos/:id', (req,res)=> {
+    const id = parseInt(req.params.id);
+    const productIndex = bd.productos.findIndex(est => est.id === id);
+
+    if(productIndex ===-1){
+        return res.status(404).send("Producto no encontrado");
+
+    }
+    bd.productos.splice(productIndex,1)
+    writeDB(bd);
+    res.status(200).send("Producto eliminado exitosamente");
+})
+
+//METODO DELETE PARA CARRITO
+app.delete('/carrito/:id_cliente', (req, res) => {
+    //  Esta es la función que define un endpoint para manejar solicitudes DELETE
+    const id_cliente = parseInt(req.params.id_cliente); // params hace referencia a los parámetros de ruta que se extraen de la URL
+    const carrito = bd.carrito.findIndex(est => est.id_cliente === id_cliente);
+    //findIndex  función de los arrays en JavaScript que busca el índice del primer elemento que cumpla con una condición dada
+
+    if (carrito === -1){
+        return res.status(404).send("Carrito no encontrado")
+    }
+    bd.carrito.splice(carrito,1) //metodo splice se le pasa el index de que se quiere que se borre 
+
+    writeDB(bd); // writeDB() toma la base de datos actualizada (bd) y la escribe de nuevo en el archivo bd.json.
+    res.status(200).send("Carrito eliminado exitosamente"); // Se establece el código de estado HTTP 200, que indica que la solicitud fue procesada correctamente.
+})
