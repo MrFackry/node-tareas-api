@@ -1,21 +1,6 @@
 {
   "clientes": [
     {
-      "id_cliente": 1,
-      "nombre_cliente": "Juan Marquez Pérez_put",
-      "direccion_cliente": "Corinto  paz Falsa 123_put",
-      "celular_cliente": "555-1234_put"
-    },
-    {
-      "id_cliente": 2,
-      "nombre_cliente": "María López",
-      "direccion_cliente": "Avenida Siempre Viva 742",
-      "celular_cliente": "555-5678"
-    },
-    {
-      "id_cliente": 5
-    },
-    {
       "id_cliente": 6
     },
     {
@@ -41,6 +26,11 @@
       "nombre_cliente": "cliente creado a través del endpoint de la API",
       "direccion_cliente": "Calle Falsa api 123",
       "celular_cliente": "api-555-1234"
+    },
+    {
+      "id": null,
+      "nombre_cliente": "Juan Manuel Pérez_put",
+      "direccion_cliente": "Corinto  paz Falsa 123_put"
     }
   ],
   "productos": [
