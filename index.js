@@ -87,7 +87,7 @@ app.get('/carrito/:id_cliente', (req, res) => {
 //metodo post clientes
 app.post('/clientes', (req, res) => {
     const { nombre_cliente, direccion_cliente, celular_cliente } = req.body; 
-    const newId = bd.clientes.length ? bd.clientes[bd.clientes.length - 1].id_cliente + 1 : 1; 
+    const newId = bd.clientes.length ? bd.clientes[bd.clientes.length - 1].id + 1 : 1; 
     const nuevo_cliente = { id: newId, nombre_cliente, direccion_cliente, celular_cliente };
     bd.clientes.push(nuevo_cliente); 
     writeDB(bd);
@@ -128,11 +128,11 @@ app.put('/clientes/:id_cliente', (req, res) => {
     const actulizarCliente = {
         ...bd.clientes[clienteIndex], // Mantiene los datos existentes
         ...body,                      // Actualiza solo los campos proporcionados en el body
-        id_cliente,                   // Asegura que el id_cliente sea consistente
+        id_cliente,                   
     };
 
     bd.clientes[clienteIndex] = actulizarCliente;
-    writeDB(bd); // Guarda los cambios en el archivo
+    writeDB(bd); 
 
     return res.status(200).json(actulizarCliente);
 });
@@ -228,25 +228,34 @@ app.patch('/productos/:id', (req,res)=> {
 
 //METODO PATCH PARA CARRITO
 
-app.patch('/carrito/:id_cliente', (req, res) => {
+app.patch('/carrito/:id_cliente/:id_producto', (req, res) => {
     const body = req.body;
     const id_cliente = parseInt(req.params.id_cliente);
+    const id_producto = parseInt(req.params.id_producto);
 
     const carrito = bd.carrito.findIndex(est => est.id_cliente === id_cliente);
 
-    if(carrito < 0){
-        return res.status(404).send("No se encontro el carrito asociado");
+    if (carrito < 0) {
+        return res.status(404).send("No se encontró el carrito asociado");
     }
+
     const carrito_modificar = bd.carrito[carrito];
-    Object.assign(carrito_modificar, body);
-    //assign es un metodo que permite modificar aquellos argumentos que le pasemos
+    const producto_modificar = carrito_modificar.productos.find(prod => prod.id_producto === id_producto);
+
+    if (!producto_modificar) {
+        return res.status(404).send("No se encontró el producto en el carrito");
+    }
+
+    // Modificar el producto con los datos del cuerpo de la solicitud
+    Object.assign(producto_modificar, body);
+
     // Escribir los cambios en la base de datos
     writeDB(bd);
 
-    // Devolver el cliente actualizado
-    res.status(200).json(carrito_modificar);
+    // Devolver el producto actualizado
+    res.status(200).json(producto_modificar);
+});
 
-})
 
 //METODO DELETE PARA CLIENTES
 
