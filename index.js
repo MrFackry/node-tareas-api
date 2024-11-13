@@ -87,8 +87,8 @@ app.get('/carrito/:id_cliente', (req, res) => {
 //metodo post clientes
 app.post('/clientes', (req, res) => {
     const { nombre_cliente, direccion_cliente, celular_cliente } = req.body; 
-    const newId = bd.clientes.length ? bd.clientes[bd.clientes.length - 1].id + 1 : 1; 
-    const nuevo_cliente = { id: newId, nombre_cliente, direccion_cliente, celular_cliente };
+    const newId = bd.clientes.length ? bd.clientes[bd.clientes.length - 1].id_cliente + 1 : 1; 
+    const nuevo_cliente = { id_cliente: newId, nombre_cliente, direccion_cliente, celular_cliente }; 
     bd.clientes.push(nuevo_cliente); 
     writeDB(bd);
     res.status(201).json(nuevo_cliente);

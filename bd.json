@@ -38,27 +38,9 @@
     },
     {
       "id": 11,
-      "nombre_cliente": "cliente creado a través del endpoint de la API",
-      "direccion_cliente": "Calle Falsa api 123",
-      "celular_cliente": "api-555-1234"
-    },
-    {
-      "id": 16,
-      "nombre_cliente": "nuevoClientePrueba",
-      "direccion_cliente": "Corinto  paz Falsa 123_POST",
-      "celular_cliente": "555-1234_POST"
-    },
-    {
-      "id": 15,
-      "nombre_cliente": "nuevoClientePrueba2",
-      "direccion_cliente": "Corinto  paz Falsa 123_POST2",
-      "celular_cliente": "555-1234_POST2"
-    },
-    {
-      "id": 14,
-      "nombre_cliente": "nuevoClientePrueba3",
-      "direccion_cliente": "Corinto  paz Falsa 123_POST3",
-      "celular_cliente": "555-1234_POST3"
+      "nombre_cliente": "rasputin",
+      "direccion_cliente": "Calle del Mar 45-zar",
+      "celular_cliente": "555-234155"
     }
   ],
   "productos": [
