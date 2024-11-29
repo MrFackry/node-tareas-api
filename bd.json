@@ -8,9 +8,9 @@
     },
     {
       "id_cliente": 2,
-      "nombre_cliente": "María López",
-      "direccion_cliente": "Avenida Siempre Viva 742",
-      "celular_cliente": "555-5678"
+      "nombre_cliente": "Juan Pérez",
+      "direccion_cliente": "Calle Falsa 123",
+      "celular_cliente": "555-1234"
     },
     {
       "id_cliente": 6
@@ -38,6 +38,18 @@
       "nombre_cliente": "nuevo cliente",
       "direccion_cliente": "nueva calle falsa",
       "celular_cliente": "123131 nuevo"
+    },
+    {
+      "id_cliente": 12,
+      "nombre_cliente": "Juan Pérez",
+      "direccion_cliente": "Calle Falsa 123",
+      "celular_cliente": "555-1234"
+    },
+    {
+      "id_cliente": 13,
+      "nombre_cliente": "Juan Pérez",
+      "direccion_cliente": "Calle Falsa 123",
+      "celular_cliente": "555-1234"
     }
   ],
   "productos": [

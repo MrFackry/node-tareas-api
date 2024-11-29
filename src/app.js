@@ -1,9 +1,8 @@
 /*CREAMOS UN ARCHVIVO APP PARA MODUALR EL CODIGO ADEMAS QUE JEST NO SOPORTA DE MANERA NATIVA LOS MODULOS ES6 (import/export).*/
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
-const bodyParser = require('body-parser');
-
+const express = require('express'); 
+const fs = require('fs'); 
+const path = require('path'); 
+const bodyParser = require('body-parser'); 
 const app = express();
 
 // Middlewares
@@ -114,6 +113,20 @@ app.patch('/clientes/:id_cliente', (req, res) => {
     res.status(200).json(cliente_modificar);
 });
 
+//METODO DELETE PARA CLIENTES
+
+app.delete('/clientes/:id_cliente', (req, res) => {
+    const id_cliente = parseInt(req.params.id_cliente);
+    const clienteIndex = bd.clientes.findIndex(c => c.id_cliente === id_cliente);
+    if (clienteIndex === -1) {
+        return res.status(404).send("Cliente no encontrado");
+    }
+    //metodo splice se le pasa el index de que s equiere que se borre 
+    bd.clientes.splice(clienteIndex, 1);
+    writeDB(bd);
+    res.status(200).send("Cliente eliminado exitosamente");
+});
+
 
 //METODOS GET PRODUCTOS
 
@@ -215,13 +228,6 @@ app.put('/carrito/:id_cliente', (req, res) => {
 app.get("/", (req, res) => {
     res.send("hola mundos");
 })
-
-//funcion call back
-
-app.listen(puerto, () => {
-    console.log("hola mundo pruebas");
-});
-
 
 // METODO PATCH PRODUCTOS
 
