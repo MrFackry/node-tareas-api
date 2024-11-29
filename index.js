@@ -88,7 +88,7 @@ app.get('/carrito/:id_cliente', (req, res) => {
 app.post('/clientes', (req, res) => {
     const { nombre_cliente, direccion_cliente, celular_cliente } = req.body; 
     const newId = bd.clientes.length ? bd.clientes[bd.clientes.length - 1].id_cliente + 1 : 1; 
-    const nuevo_cliente = { id: newId, nombre_cliente, direccion_cliente, celular_cliente };
+    const nuevo_cliente = { id_cliente: newId, nombre_cliente, direccion_cliente, celular_cliente }; 
     bd.clientes.push(nuevo_cliente); 
     writeDB(bd);
     res.status(201).json(nuevo_cliente);
@@ -128,11 +128,11 @@ app.put('/clientes/:id_cliente', (req, res) => {
     const actulizarCliente = {
         ...bd.clientes[clienteIndex], // Mantiene los datos existentes
         ...body,                      // Actualiza solo los campos proporcionados en el body
-        id_cliente,                   // Asegura que el id_cliente sea consistente
+        id_cliente,                   
     };
 
     bd.clientes[clienteIndex] = actulizarCliente;
-    writeDB(bd); // Guarda los cambios en el archivo
+    writeDB(bd); 
 
     return res.status(200).json(actulizarCliente);
 });
@@ -171,10 +171,6 @@ app.put('/carrito/:id_cliente', (req, res) => {
     writeDB(bd);
     return res.status(200).json(actulizarCarrito);
 })
-//TODO METODOS PATCH PARA CLIENTES PRODUCTOS Y CARRITO
-
-//TODO METODOS DELETE PARA CLIENTES PRODUCTOS Y CARRITO
-
 //run server comman
 "npm run dev"
 
@@ -189,7 +185,7 @@ app.listen(puerto, () => {
     console.log("hola mundo pruebas");
 });
 
-// METODO PATH CLIENTES
+// METODO PATCH CLIENTES
 app.patch('/clientes/:id_cliente', (req, res) => {
     const id_cliente = parseInt(req.params.id_cliente); // obtener el id de la URL
     const informacion = req.body; // obtener los datos del cuerpo de la solicitud
@@ -209,7 +205,7 @@ app.patch('/clientes/:id_cliente', (req, res) => {
     res.status(200).json(cliente_modificar);
 });
 
-// METODO PATH PRODUCTOS
+// METODO PATCH PRODUCTOS
 
 app.patch('/productos/:id', (req,res)=> {
     const body = req.body
@@ -230,27 +226,36 @@ app.patch('/productos/:id', (req,res)=> {
     res.status(200).json(producto_modificar);
 });
 
-//METODO PATH PARA CARRITO
+//METODO PATCH PARA CARRITO
 
-app.patch('/carrito/:id_cliente', (req, res) => {
+app.patch('/carrito/:id_cliente/:id_producto', (req, res) => {
     const body = req.body;
     const id_cliente = parseInt(req.params.id_cliente);
+    const id_producto = parseInt(req.params.id_producto);
 
     const carrito = bd.carrito.findIndex(est => est.id_cliente === id_cliente);
 
-    if(carrito < 0){
-        return res.status(404).send("No se encontro el carrito asociado");
+    if (carrito < 0) {
+        return res.status(404).send("No se encontró el carrito asociado");
     }
+
     const carrito_modificar = bd.carrito[carrito];
-    Object.assign(carrito_modificar, body);
-    //assign es un metodo que permite modificar aquellos argumentos que le pasemos
+    const producto_modificar = carrito_modificar.productos.find(prod => prod.id_producto === id_producto);
+
+    if (!producto_modificar) {
+        return res.status(404).send("No se encontró el producto en el carrito");
+    }
+
+    // Modificar el producto con los datos del cuerpo de la solicitud
+    Object.assign(producto_modificar, body);
+
     // Escribir los cambios en la base de datos
     writeDB(bd);
 
-    // Devolver el cliente actualizado
-    res.status(200).json(carrito_modificar);
+    // Devolver el producto actualizado
+    res.status(200).json(producto_modificar);
+});
 
-})
 
 //METODO DELETE PARA CLIENTES
 
